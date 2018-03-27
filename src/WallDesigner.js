@@ -11,7 +11,7 @@ function WallDesigner(container){
 		d.show("floorplan-info-browser-old");
 		return;
 	}else{
-		$.getScript('../js/kineticjs433.js', 
+		$.getScript('../thirdparty/kineticjs433.js',
 			function() {
            		that.init();
         	}

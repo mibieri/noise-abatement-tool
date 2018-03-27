@@ -253,8 +253,12 @@ var FloorPlanReceiver = FloorPlanDynamicObject.extend({
 	calculate: function(){
 		var that = this;
 
-		var w = this.floorplan.width * this.floorplan.scale;
-		var h = this.floorplan.height * this.floorplan.scale;
+        // modified in 2018 by mibieri@gmail.com
+		//var w = this.floorplan.width * this.floorplan.scale;
+		//var h = this.floorplan.height * this.floorplan.scale;
+		var w = this.ctx.canvas.width;
+		var h = this.ctx.canvas.height;
+
 		var imgData = this.ctx.createImageData(w, h);
 		
 		if(this.heatmap){
