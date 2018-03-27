@@ -185,6 +185,21 @@ NoiseCalculator.prototype.calculateHeatmapAdaptive = function(w, h, x_steps, y_s
 		}
 		//console.log("Grid " + grid + ": cnt = " + cnt + ", cntI = " + cntI);
 	}
+
+    // quick bugfix for some empty values
+	for(var i = 0; i < this.heatmap.length; i ++){
+	    var a = this.heatmap[i];
+		for(var j = 0; j < a.length; j ++){
+			if(a[j] < 0){
+			    if(j > 0){
+			        a[j] = a[j - 1];
+                }
+                else{
+			        // the bug should only occur towards the end of the array
+                }
+            }
+		}
+	}
 	
 								
 }
@@ -284,8 +299,7 @@ NoiseCalculator.prototype.calculateHeatmapAdaptiveAsync = function(w, h, x_steps
 		}
 		//console.log("Grid " + grid + ": cnt = " + cnt + ", cntI = " + cntI);
 	}
-	
-								
+
 }
 
 NoiseCalculator.prototype.calculateHeatmapPointPush = function(rcv, w, h, x, y, x_steps, y_steps, phi_steps){
