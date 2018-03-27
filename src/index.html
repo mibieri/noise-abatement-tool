@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=9" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Grafisches Berechnungstool von www.laermwand.ch</title>
+<link rel="stylesheet" type="text/css" href="../../font-awesome.css">
+<link rel="stylesheet" type="text/css" href="../../js/css/smoothness/jquery-ui-1.10.1.custom.css"/>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<script src="../js/jquery-1.9.1.js"></script>
+<script src="../js/jquery-ui-1.10.1.custom.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+
+<!--<script src="../js/kineticjs433.js"></script> will be loaded dynamically in WallDesigner.js if browser is new enough (one could also build a complete loader, but there's no time left) -->
+<script type='text/javascript' src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<script src="WallDesigner.js"></script>
+<script src="NoiseCalculator.js"></script>
+<script src="ContextMenu.js"></script>
+<script src="Class.js"></script>
+<script src="MultiCallback.js"></script>
+<script src="FloorPlan.js"></script>
+<script src="FloorPlanObject.js"></script>
+<script src="FloorPlanDynamicObject.js"></script>
+<script src="FloorPlanRoad.js"></script>
+<script src="FloorPlanReceiver.js"></script>
+<script src="FloorPlanDynamicRect.js"></script>
+<script src="Ruler.js"></script>
+<script src="DialogManager.js"></script>
+<script src="BrowserDetect.js"></script>
+</head>
+<body>
+<script>
+	$(function(){
+		var w = new WallDesigner("floorplan");
+	});
+</script>
+
+<div id="floorplan-maincontainer">
+<div id="floorplan-title">Grafisches Berechnungstool von www.laermwand.ch</div>
+<div id="floorplan"></div></div>
+
+<div id="floorplan-help-menu-container">
+
+    <div id="floorplan-help-start" class="floorplan-help">
+    <h1>Einführung</h1>
+    <p>Diese Einführung wird Ihnen das Tool Schritt-für-Schritt erklären.</p>
+    <p>Bevor wir starten, sollten Sie sich kurz mit dem Menu vertraut machen:
+    	<ul>
+        	<li>Oberhalb dieses Hilfekasten, den Sie gerade lesen, befindet sich das Menü "Optionen".</li>
+        	<li>Darüber befindet sich das Menü "Resultate".</li>
+        </ul>
+    </p>
+    <p>
+    </p>Klicken Sie nun irgendwo auf den grauen Bereich rechts, um die Einführung zu starten.</p>
+    <p></p>
+    <a href="help://floorplan-help-floorplan" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-result" id="floorplan-help-previous"></a>    
+    </div>
+
+	   
+    <div id="floorplan-help-floorplan" class="floorplan-help">
+    <h1>Zeichenfläche</h1>
+    <p>Der graue Bereich ist die <i>Zeichenfläche</i>. Hier können Sie Wände und Häuser platzieren, um Ihre Situation zu skizzieren.</p>
+    <p>Klicken Sie nun auf den Button "Neue Wand" oder "Neues Haus" im Menu "Optionen", um eine Lärmschutzwand oder ein Haus auf der Skizze zu platzieren.</p>
+    <p>Fügen Sie eine Wand und ein Haus ein und klicken Sie die Wand oder das Haus an.</p>
+    <p></p>
+    <a href="help://floorplan-help-obstacle" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-start" id="floorplan-help-previous"></a>    
+    </div>
+
+    <div id="floorplan-help-obstacle" class="floorplan-help">
+    <h1>Wand/Haus</h1>
+    <p>Das angeklickte Element ist nun rot markiert und es erscheinen diverse Bemassungen.</p>
+    <p>Mit der Maus können Sie die Objekte verschieben und ihre Grösse ändern.</p>
+    <p>Im Menu "Optionen" können Sie weitere Einstellungen für das Haus/die Wand vornehmen. Klicken Sie auf die Info-Symbole <span style="display: inline; color: #0000FF" class="icon-info-sign"></span>, um mehr Informationen zu den Einstellungen zu erhalten.</p>
+    <p>Klicken Sie auf "weiter", um die Einführung fortzusetzen.</p>
+    <p></p>
+    <a href="help://floorplan-help-road" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-floorplan" id="floorplan-help-previous"></a>    
+    </div>
+	
+	<div id="floorplan-help-road" class="floorplan-help">
+    <h1>Strasse</h1>
+    <p>Wenn Sie die Strasse anklicken, so wird diese rot markiert und es erscheinen diverse Bemassungen. Mit der Maus können Sie die Strasse verschieben und ihre Breite ändern.</p>
+    <p>Im Menü "Optionen" können Sie die Lärmemmission der Strasse einstellen.</p>
+    <p>Klicken Sie auf "weiter", um die Einführung fortzusetzen.</p>
+    <p></p>
+    <a href="help://floorplan-help-receiver" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-obstacle" id="floorplan-help-previous"></a>    
+    </div>
+ 
+	<div id="floorplan-help-receiver" class="floorplan-help">
+    <h1>Empfangspunkt</h1>
+    <p>Klicken Sie den gelben Punkt an. Er repräsentiert den Empfangspunkt, also beispielsweise das Fenster, für den Sie den Lärmpegel wissen möchten.</p>
+    <p>Die rote Linie im "Spinnennetz" zeigt an, welche Schallleistung aus der jeweiligen Richtung eingestrahlt wird. Ist die Linie weit vom Mittelpunkt entfernt, so kommt aus dieser Richtung viel Leistung an.</p>
+    <p>Klicken Sie nun im Menü "Optionen" auf die Info-Symbole <span style="display: inline; color: #0000FF" class="icon-info-sign"></span> bei "Reflexionsmodell" und "Lärmkarte".</p>
+    <p>Klicken Sie auf "weiter", um die Einführung fortzusetzen.</p>
+    <p></p>
+    <a href="help://floorplan-help-result" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-road" id="floorplan-help-previous"></a>    
+    </div>    
+  
+	<div id="floorplan-help-result" class="floorplan-help">
+    <h1>Resultate</h1>
+    <p>Im Menü "Resultate" sehen Sie die Berechnungsresultate. Klicken Sie die jeweiligen Info-Symbole <span style="display: inline; color: #0000FF" class="icon-info-sign"></span> an, um mehr über ein Resultat zu erfahren.</p>
+    <p>Wenn Sie eine Fehleingabe machen, so erscheint im Menü "Resultate" eine rot hinterlegte Fehlermeldung. Die Fehlermeldung sagt Ihnen, was Sie korrigieren müssen, um zu einem gültigen Resultat zu kommen.</p>
+    <p>Sie haben die Einführung hiermit durchgearbeitet.</p>
+    <p></p>
+    <a href="help://floorplan-help-start" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-receiver" id="floorplan-help-previous"></a>    
+    </div>   
+       
+</div>
+
+<div id="floorplan-info-container">
+
+   <div id="floorplan-info-browser-old" class="dialog">
+		<h1>Browserkompatibilität</h1>
+        <h2>Hinweis zur Browserkompatibilität</h2>
+        <p>Sie verwenden einen sehr alten Browser. Das Tool funktioniert deshalb möglicherweise nicht richtig und die grafische Darstellung ist eingschränkt.</p>
+        <p>Es wird empfohlen, auf einen der folgenden Browser (oder neuer) zu wechseln:</p>
+        	<ul>
+        		<li>Chrome 24</li>
+        		<li>Internet Explorer 9</li>
+        		<li>Firefox 18</li>
+                <li>Opera 12</li>
+                <li>Safari 5</li>
+        	</ul>
+        </p>
+    </div>
+
+   <div id="floorplan-info-browser-nochrome" class="dialog">
+		<h1>Browserkompatibilität</h1>
+        <h2>Hinweis zur Browserkompatibilität</h2>
+        <p>Das Berechnungstool enthält aufwendige grafische Berechnungen und muss deshalb in einem leistungsfähigen Browser angezeigt werden. Ihr Browser ist ausreichend, jedoch haben wir bei unseren Tests die schnellste und flüssigste Darstellung in Google Chrome erzielt.</p>
+        <p></p>
+    </div>
+
+   <div id="floorplan-info-willkommen" class="dialog">
+		<h1>Willkommen</h1>
+        <h2>Wofür ist dieses Tool?</h2>
+        <p>Mit dem grafischen Lärmwand-Berechnungstool können Sie eine Situation aus Strasse, Lärmwänden und Gebäuden skizzieren und die Lärmimmissionen berechnen.</p>
+        <h2>Und wie geht das genau?</h2>
+        <p>Links unten sehen Sie einen weissen Kasten mit der Überschrift "Einführung". Sie erhalten dort eine Schritt-für-Schritt-Einführung in das Tool. Ebenfalls sehen Sie bei vielen Menüpunkten und Resultaten ein Info-Symbol <span style="display: inline; color: #0000FF" class="icon-info-sign"></span>. Wenn Sie dieses Symbol anklicken, erhalten Sie mehr Infos zum jeweiligen Menüpunkt oder Resultat.</p>
+  <p>Am besten starten Sie nun mit der Schritt-für-Schritt-Einführung links unten.</p>
+    </div>
+
+	   
+    <div id="floorplan-info-pegel-am-empfangspunkt" class="dialog">
+		<h1>Pegel am Empfangspunkt</h1>
+        <h2>Was ist der "Pegel am Empfangspunkt"?</h2>
+		<p>Der Pegel am Empfangspunkt gibt an, wie laut es am Empfangspunkt - also beispielsweise auf einem Balkon oder an einem Fenster - ist. Der Empfangspunkt wird auf der Skizze repräsentiert durch den gelben Punkt.</p>
+        <h2>Wie wird er berechnet?</h2>
+        <p>Der Pegel berechnet sich aus zwei Komponenten:</p>
+        	<ul>
+            	<li>Aus jeder Richtung (in 1-Grad-Schritten) rund um den Empfänger wird die einfallende Schallenergie berechnet und energetisch aufsummiert (Segmentierungsansatz gemäss Strassenlärmmodell STL-86). Dies ergibt den Pegel (ohne Reflexionen) am Empfangspunkt.</li>
+                <li>Sofern ein Reflexionsmodell gewählt wurde (Gelber Empfangspunkt anklicken -> Menü "Optionen" -> Reflexionsmodell), wird zusätzlich noch der Reflexionszuschlag dazugrechnet.</li>
+            </ul>
+        
+    </div> 
+    
+    <div id="floorplan-info-hindernisreduktion" class="dialog">
+		<h1>Hinderniswirkung</h1>
+        <h2>Reduktion</h2>
+		<p>Jedes Hindernis zwischen Schallquelle und Empfänger reduziert den Schallpegel am Empfangspunkt. Der Wert für die <i>Reduktion</i> zeigt an, um wie viel es am Empfangspunkt lauter wird, wenn die vom Hindernis zurückgehaltene Schallenergie an den Empfangspunkt durchdringen könnte.  </p>
+        <h2>Doppelhindernis</h2>
+		<p>Ein <i>Doppelhindernis</i> tritt dann auf, wenn sich auf der Strecke zwischen einem Punkt auf der Strasse und dem Empfangspunkt zwei Hindernisse befinden. In diesem Fall wird der Reduktionswert für das Doppelhindernis angegeben. Im Normalfall überlappen sich zwei Hindernisse nur teilweise, dann wird jeweils noch ein Reduktionswert für den nicht-überlappenden Anteil der Hindernisse angegeben</p>
+        <h2>Aber Achtung: Begrenzte Aussagekraft!</h2>
+        <p>In einfachen Situationen entspricht die Reduktion genau demjenigen Wert, um den es am Empfangspunkt lauter wird, wenn dass Hindernis entfernt würde. In komplizierten Situationen trifft dies nicht unbedingt zu, da beispielsweise beim Entfernen von Hindernis A ein dahinter stehendes Hindernis B frei wird und immer noch (fast) die selbe Schallenergie zurückhält.</p>
+     
+    </div>     
+  
+
+   <div id="floorplan-info-reflexionsmodell" class="dialog">
+		<h1>Reflexionsmodell</h1>
+        <h2>Berechnung der Reflexionen</h2>
+        <p>Reflexionen treten dann auf, wenn der Schall von Gebäuden oder Mauern zum Empfangspunkt zurückgeworfen wird. Es gibt verschiedene Berechnungsmodelle, um die Reflexionen zu berechnen. Derzeit ist nur ein Modell verfügbar:</p>
+        <ul>
+        	<li>Reflexionsmodell gemäss Mitteilung 6, BUWAL 1995: Dieses Modell wurde entwickelt, um Reflexionen in Strassenschluchten zu berechnen. Es sollte nur dann eingeschaltet werden, wenn eine Strassenschluchtsituation vorliegt. Die Strasse muss dicht und nahe mit verhältnismässig hohen Gebäuden bebaut sein. Ist dies nicht der Fall, so wird eine Fehlermeldung ausgegeben.</li>
+        </ul>
+    </div>
+
+   <div id="floorplan-info-reflexionszuschlag-buwal1995" class="dialog">
+		<h1>Reflexionszuschlag gemäss Mitteilung 6, BUWAL 1995</h1>
+        <h2>Reflexionszuschlag</h2>
+        <p>Reflexionen treten dann auf, wenn der Schall von Gebäuden oder Mauern zum Empfangspunkt zurückgeworfen wird. Der Reflexionszuschlag gibt an, um wie viel sich dadurch der Schallpegel am Empfangspunkt erhöht. Erhöhung des Immissionspegels durch Reflexionen um den angegebenen Betrag. Berechnung gemäss Mitteilung 6, BUWAL 1995.</p>
+        <h2>Berechnungsmodell</h2>
+        <p>Die Berechnung erfolgt gemäss Mitteilung 6, BUWAL 1995.Dieses Modell wurde entwickelt, um Reflexionen in <i>Strassenschluchten</i> zu berechnen. Es sollte nur dann eingeschaltet werden, wenn eine Strassenschluchtsituation vorliegt. Die Strasse muss dicht und nahe mit verhältnismässig hohen Gebäuden bebaut sein. Ist dies nicht der Fall, so wird eine Fehlermeldung ausgegeben.</p>
+        <h2>Gelbes Rechteck</h2>
+        <p>Nur Fassaden und Wände, die sich im gelben Rechteck befinden, werden in die Berechnung einbezogen. Ebenso muss der Empfänger im gelben Rechteck liegen. Ist das gelbe Rechteck nur spärlich mit Fassaden besetzt, so liegt keine echte Strassenschluchtensituation vor und die Berechnung kann ungenau sein.</p>
+  
+    </div>
+
+   <div id="floorplan-info-name" class="dialog">
+		<h1>Name</h1>
+        <h2>Option "Name"</h2>
+        <p>Sie können den Gebäuden und Wänden sowie der Strasse und dem Empfangspunkt einen Namen, z.B. "Hauptstrasse", "Mein Balkon" oder "Nachbar's Haus" geben. Dies dient allein zu Ihrer besseren Übersicht. </p>
+    </div> 
+
+   <div id="floorplan-info-typ" class="dialog">
+		<h1>Typ</h1>
+        <h2>Option "Typ"</h2>
+        <p>Die Option "Typ" gibt den Elementtyp an. Sie kann nicht geändert werden.</p>
+        <p>Folgende Elemente können auf der Zeichenfläche platziert werden:</p>
+        <ul>
+        	<li><i>Empfangspunkt</i>: Position, für die der Schallpegel bestimmt werden soll. Das kann beispielsweise ein Fenster oder ein Balkon sein. Der Empfangspunkt wird durch einen gelben Punkt symbolisiert.</li>
+            <li><i>Strasse</i>: Die Strasse ist die Quelle für den Lärm.</li>
+            <li><i>Wand und Gebäude</i>: Diese Objekte können Sie platzieren, um die Lärmschutzwirkung abzuschätzen. Klicken Sie zunächst auf einen leeren Bereich in der Zeichenfläche und dann auf den entsprechenden Button im Menu links, wenn Sie neue Objekte einfügen möchten.</li>  
+            <li><i>Zeichenfläche</i>: Die graue Fläche, auf die Sie Ihre Skizze erstellen können.</li>            
+        </ul>
+    </div>
+      
+   <div id="floorplan-info-neu" class="dialog">
+		<h1>Neues Objekt</h1>
+        <h2>Neues Objekt</h2>
+        <p>Platziert ein weiteres Haus oder eine weitere Wand auf der Zeichenfläche.</p>
+    </div> 
+ 
+   <div id="floorplan-info-hoehe" class="dialog">
+		<h1>Höhe des Empfangspunktes</h1>
+        <h2>Option "Höhe"</h2>
+        <p>Geben Sie hier ein, wie hoch sich der Empfangspunkt befindet. Als Referenz (d.h. Nullpunkt) nehmen Sie die Strassenachse.</p>
+        <p>Verwenden Sie den Punkt (und nicht das Komma) als Dezimaltrennzeichen.</p>
+    </div>  
+
+   <div id="floorplan-info-hoehe-obs" class="dialog">
+		<h1>Höhe des Hindernisses</h1>
+        <h2>Option "Höhe"</h2>
+        <p>Geben Sie hier die maximale Bauhöhe des Hindernisses an. Als Referenz (d.h. Nullpunkt) nehmen Sie die Strassenachse.</p>
+        <p>Steht also beispielsweise ein 12 Meter hohes Haus an einer Position zwei Meter höher als die Strasse, so ist die einzugebende Höhe 14 Meter.</p>
+        <p>Verwenden Sie den Punkt (und nicht das Komma) als Dezimaltrennzeichen.</p>
+    </div>  
+
+   <div id="floorplan-info-loeschen" class="dialog">
+		<h1>Löschen</h1>
+        <h2>Löschen</h2>
+        <p>Entfernt das rot markierte Objekt (Gebäude oder Wand) aus der Skizze.</p>
+    </div>  
+
+   <div id="floorplan-info-rot" class="dialog">
+		<h1>Drehen</h1>
+        <h2>Drehen</h2>
+        <p>Dreht das rot markierte Objekt (Gebäude oder Wand) um 90°. Eine genauere Winkeleinstellung ist derzeit nicht vorgesehen.</p>
+    </div>  
+
+   <div id="floorplan-info-laermkarte" class="dialog">
+		<h1>Lärmkarte</h1>
+        <h2>Lärmkarte berechnen</h2>
+        <p>Für jeden Punkt auf der Skizze wird der örtliche Schallpegel berechnet und mit einer farbigen Karte dargestellt. Fahren Sie mit der Maus über die Karte, um den örtlichen Pegel anzuzeigen.</p>
+        <p>Sobald Sie Objekte verschieben, wird die aktuelle Karte gelöscht und muss neu berechnet werden.</p>
+        <p>Auf älteren/langsameren PCs kann die Berechnung sehr lange dauern.</p>
+    </div> 
+ 
+   <div id="dialog-info-emmission" class="dialog">
+		<h1>Emmissionspegel</h1>
+        <h2>Emmissionspegel L<sub>E</sub></h2>
+        <p>Geben Sie in diesem Feld den Emmissionspegel L<sub>E</sub> in Dezibel (dB) an. Für den Kanton Zürich finden Sie die Lärmemmission vieler Strassen im <a href="http://www.tba.zh.ch/internet/baudirektion/tba/de/laerm/laermsituation/strassenlaerm.html" target="_blank">Strassenlärm Informationssystem</a>.</p>
+        <p>Für eine Stark befahrene Strasse kann ein Emmisionspegel von 80-90 Dezibel (dB) angenommen werden. Der Wert variert aber sehr stark mit dem Verkehrsaufkommen, der gefahrenen Geschwindigkeit und dem Schwerverkehrs-Anteil.</p>
+    </div>  
+ 
+    
+   <div id="floorplan-info-berechne-heatmap" class="dialog">
+		<h1>Lärmkarte wird berechnet</h1>
+        <p>Bitte haben Sie etwas Geduld. Die Berechnung der Lärmkarte ist sehr rechenaufwendig und dauert bis zu einer Minute. Es kann sein, dass der Browser für kurze Zeit nicht mehr reagiert.</p>
+    </div>      
+</div>
+
+</body>
+</html>

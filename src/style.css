@@ -1,0 +1,265 @@
+
+@charset "utf-8";
+
+body{
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	background-color: #FFFFFF;	
+}
+
+p{
+
+}
+
+#floorplan-maincontainer{
+	padding: 3px;
+	padding-bottom: 0px;
+	background-color: #6699EE;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	display: inline-block;
+	min-width: 1223px;
+}
+
+#floorplan-title{
+	padding: 6px;
+	background-color: #6699EE;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#floorplan{
+	font-size: 10px;
+	background-color: #6699EE;
+	display: inline-block;	
+	color: #000000;
+	font-weight: normal;
+
+}
+
+#floorplan-canvas{
+	display: inline-block;
+	background-color: #6699EE;
+	height: 640px;
+	margin: 0px;
+	margin-left: 3px;
+	border-left-color: #6699EE;	
+}
+
+#floorplan-tools{
+	display: inline-block;
+	background-color: #FFFFFF;
+	height: 640px;
+	vertical-align: top;
+	margin: 0px;
+	width: 260px;
+}
+
+.floorplan-tool{
+	display: block;
+	background-color: #FFFFFF;
+	vertical-align: top;
+	margin: 0px;
+	width: 260px;
+	overflow: auto;
+}
+
+#floorplan-tool-results{
+	height: 190px;
+}
+
+#floorplan-tool-properties{
+	height: 140px;
+}
+
+#floorplan-tool-help{
+	height: 230px;
+}
+
+.floorplan-tool-container {
+
+}
+
+.contextmenu-properties-line{
+	padding: 3px;
+	display: block;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-color: #DDDDDD;
+}
+
+.contextmenu-properties-title{
+	background-color: #DDDDDD;
+	font-size: 12px;
+}
+
+.contextmenu-properties-subtitle{
+	background-color: #DDDDDD;
+}
+
+.contextmenu-properties-left{
+	display: inline-block;	
+	text-align: left;
+	width: 47%;
+}
+
+.contextmenu-properties-right{
+	display: inline-block;	
+	text-align: left;
+	width: 46%;
+}
+
+.contextmenu-properties-info{
+	display: inline-block;	
+	text-align: right;
+	font-size: 14px;
+	padding-left: 3px;
+	padding-right: 3px;
+	vertical-align: middle;
+}
+
+.contextmenu-properties-info a{
+	color: #0000FF;	
+}
+
+.contextmenu-results-right{
+	width: 20%;
+}
+
+.contextmenu-results-left{
+	width: 73%;
+}
+
+.contextmenu-results-main{
+	font-weight: bold;
+}
+
+.contextmenu-results-line-error{
+	color: #FF0000;
+	background-color: rgba(255, 0, 0, 0.1);
+}
+
+.contextmenu-properties-textfield{
+	display: inline-block;
+	font-size: 10px;	
+	width: 100px;
+}
+
+.contextmenu-properties-textfield-numeric{
+	text-align: right;	
+	width: 30px;
+	padding-right: 3px;
+}
+
+.contextmenu-properties-button{
+	display: inline-block;
+	font-size: 10px;
+	border: 1px solid;	
+}
+
+.contextmenu-properties-option{
+	display: inline-block;
+	font-size: 10px;	
+	width: 100px;
+}
+
+#floorplan-help-menu-container{
+	display: none;	
+}
+
+.floorplan-help{
+	padding: 4px;	
+}
+
+.floorplan-help h1{
+	font-size: 11px;
+	font-weight: bold;
+	margin-top: 0px;
+	margin-bottom: 3px;
+}
+
+.floorplan-help p{
+	margin: 0px;	
+}
+
+.floorplan-help-nav{
+	text-align: right;
+	margin-top: 5px;	
+}
+
+#floorplan-info-container{
+	
+}
+
+.dialog-overlay{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dialog{
+	display: none;
+	font-size: 13px;
+	line-height: 140%;	
+	position: absolute;
+	z-index: 100;
+	background-color: #FFFFFF;
+	border-color: #6699EE;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 5px 5px 5px #000000;	
+	max-width: 640px;
+	max-height: 600px;
+}
+
+.dialog-close{
+	font-size: 11px;	
+	color: #FFFFFF;
+	background-color: #6699EE;
+	padding: 3px;
+	text-align: right;
+	cursor: pointer;
+	margin-top: 15px;
+}
+
+.dialog h1{
+	background-color: #6699EE;
+	margin: 0px;
+	padding: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.dialog h2{
+	font-size: 13px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin: 0px;
+	margin-top: 20px;
+}
+
+.dialog p{
+	margin: 0px;
+	padding: 0px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 7px;
+}
+
+.dialog ul{
+	padding: 0px;
+	padding-left: 30px;	
+	margin: 0px;
+}
+
+.dialog li{
+	margin: 0px;
+	margin-top: 7px;	
+}
+
+.floorplan-dialog-info{
+	
+}
