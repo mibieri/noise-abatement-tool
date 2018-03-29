@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=9" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../thirdparty/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="../thirdparty/jquery-ui-1.10.1.custom.css"/>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<script src="../thirdparty/jquery-1.9.1.js"></script>
+<script src="../thirdparty/jquery-ui-1.10.1.custom.js"></script>
+<script src="../thirdparty/jquery.cookie.js"></script>
+
+<!--<script src="../js/kineticjs433.js"></script> will be loaded dynamically in WallDesigner.js if browser is new enough (one could also build a complete loader, but there's no time left) -->
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=default"></script>
+<script src="WallDesigner.js"></script>
+<script src="NoiseCalculator.js"></script>
+<script src="ContextMenu.js"></script>
+<script src="Class.js"></script>
+<script src="MultiCallback.js"></script>
+<script src="FloorPlan.js"></script>
+<script src="FloorPlanObject.js"></script>
+<script src="FloorPlanDynamicObject.js"></script>
+<script src="FloorPlanRoad.js"></script>
+<script src="FloorPlanReceiver.js"></script>
+<script src="FloorPlanDynamicRect.js"></script>
+<script src="Ruler.js"></script>
+<script src="DialogManager.js"></script>
+<script src="BrowserDetect.js"></script>
+<title>Noise Abatement Wall Tool from www.laermwand.ch</title>
+</head>
+<body>
+<script>
+	$(function(){
+		var w = new WallDesigner("floorplan");
+	});
+</script>
+
+<div id="floorplan-maincontainer">
+<div id="floorplan-title">Noise Abatement Wall Tool from www.laermwand.ch</div>
+<div id="floorplan"></div></div>
+
+<div id="floorplan-help-menu-container">
+
+    <div id="floorplan-help-start" class="floorplan-help">
+    <h1>Introduction</h1>
+    <p>This introduction will explain the tool step by step.</p>
+    <p>Before you start, a word about the menu:
+    	<ul>
+        	<li>Above this text you're currently reading, you find the "Options" box.</li>
+        	<li>Above, you see the "Results" box.</li>
+        </ul>
+    </p>
+    <p>
+    </p>Click into the grey area on the right to start the introduction.</p>
+    <p></p>
+    <a href="help://floorplan-help-floorplan" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-result" id="floorplan-help-previous"></a>    
+    </div>
+
+	   
+    <div id="floorplan-help-floorplan" class="floorplan-help">
+    <h1>Canvas</h1>
+    <p>The grey area is your <i>Canvas</i>. You can draw buildings and noise abatement walls to scetch your situation.</p>
+    <p>Click "New Wall" or "New House" to place a new wall or a new building.</p>
+    <p>Insert a wall and a building and click the wall or house.</p>
+    <p></p>
+    <a href="help://floorplan-help-obstacle" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-start" id="floorplan-help-previous"></a>    
+    </div>
+
+    <div id="floorplan-help-obstacle" class="floorplan-help">
+    <h1>Wall/Building</h1>
+    <p>The selected element is now marked and you see the dimensioning.</p>
+    <p>Use the mouse to move and resize the elements.</p>
+    <p>In the "Options" box, you can further configure the element. Click the info symbols <span style="display: inline; color: #0000FF" class="icon-info-sign"></span> for more information about the options.</p>
+    <p>Click "Next" to go on.</p>
+    <p></p>
+    <a href="help://floorplan-help-road" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-floorplan" id="floorplan-help-previous"></a>    
+    </div>
+	
+	<div id="floorplan-help-road" class="floorplan-help">
+    <h1>Road</h1>
+    <p>You can mark and edit the road in a similar fashion as the buildings. </p>
+    <p>In the "Options" box you can configure the noise level of the road.</p>
+    <p>Click "Next" to go on.</p>
+    <p></p>
+    <a href="help://floorplan-help-receiver" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-obstacle" id="floorplan-help-previous"></a>    
+    </div>
+ 
+	<div id="floorplan-help-receiver" class="floorplan-help">
+    <h1>Reception Point</h1>
+    <p>Click the yellow dot. It represents the point where you want to know the noise level.</p>
+    <p>The red line in the "spider" shows the noise level coming from that direction. Angles where the line is far apart from the yellow dot means a high noise level from that direction.</p>
+    <p>In "Options", click the info symbols <span style="display: inline; color: #0000FF" class="icon-info-sign"></span> at "Reflection Model" and "Noise Map".</p>
+    <p>Klicken Sie auf "weiter", um die Einführung fortzusetzen.</p>
+    <p></p>
+    <a href="help://floorplan-help-result" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-road" id="floorplan-help-previous"></a>    
+    </div>    
+  
+	<div id="floorplan-help-result" class="floorplan-help">
+    <h1>Results</h1>
+    <p>Under "Results", you see the results of the calculation. Click the info symbols <span style="display: inline; color: #0000FF" class="icon-info-sign"></span> for more information.</p>
+    <p>If something is wrong, this box will tell you what you need to fix.</p>
+    <p>Congrats, you're at the end of the introduction.</p>
+    <p></p>
+    <a href="help://floorplan-help-start" id="floorplan-help-next"></a>
+    <a href="help://floorplan-help-receiver" id="floorplan-help-previous"></a>    
+    </div>   
+       
+</div>
+
+<div id="floorplan-info-container">
+
+   <div id="floorplan-info-browser-old" class="dialog">
+		<h1>Browser Compatibility</h1>
+        <h2>Browser Compatibility</h2>
+        <p>You seem to use a very old browser. The tool is probably not compatible with that version.</p>
+        <p>As of 2013, we recommend at least the following versions:</p>
+        	<ul>
+        		<li>Chrome 24</li>
+        		<li>Internet Explorer 9</li>
+        		<li>Firefox 18</li>
+                <li>Opera 12</li>
+                <li>Safari 5</li>
+        	</ul>
+        </p>
+    </div>
+
+   <div id="floorplan-info-browser-nochrome" class="dialog">
+		<h1>Browser Compatibility</h1>
+        <h2>Browser Compatibility</h2>
+        <p>This tool performs extensive numerical and graphical computations and needs a powerful and recent browser. Your browser seems to be fine, but we achieved the best results using Google Chrome.</p>
+        <p></p>
+    </div>
+
+   <div id="floorplan-info-willkommen" class="dialog">
+		<h1>Welcome</h1>
+        <h2>Why this tool?</h2>
+        <p>This tool helps you to calculate the perceived noise level of a road when buildings and noise abatement walls are present. You can draw your situation and compute an estimation of the noise level.</p>
+        <h2>And how does it work?</h2>
+        <p>On the left, you see a box white box with an step-by-step introduction. You also see many info symbols <span style="display: inline; color: #0000FF" class="icon-info-sign"></span>. Just click them to get more information about a menu entry.</p>
+  <p>Now let's just start with the step-by-step introduction.</p>
+    </div>
+
+	   
+    <div id="floorplan-info-pegel-am-empfangspunkt" class="dialog">
+		<h1>Noise Level at Reception Point</h1>
+        <h2>Noise Level at Reception Point</h2>
+		<p>The reception point is represented by the yellow dot. The noise level at this position is computed. This could be for example your balcony or a window.</p>
+        <h2>How is it calculated?</h2>
+        <p>The noise level is computed from two components:</p>
+        	<ul>
+            	<li>From each direction (in 1-degree steps), the incoming noise energy is computed and summed up (segmenting approach from Swiss Strassenlärmmodell STL-86).</li>
+                <li>If the reflection model is enabled (Click the yellow reception point -> "Options" -> Reflecion Model), reflections will be added.</li>
+            </ul>
+        
+    </div> 
+    
+    <div id="floorplan-info-hindernisreduktion" class="dialog">
+		<h1>Obstacle Effect</h1>
+        <h2>Reduction</h2>
+		<p>Obstacles between noise source and reception point will decrease the noise level. The <i>Reduction</i> shows the reduction of the noise level caused by the selected obstacle (wall, building).  </p>
+        <h2>Double Obstacle</h2>
+		<p>A <i>double obstacle</i> means that there are two obstacles between noise source and reception point. In that case, the reduction for the double obstacle is computed.</p>
+        <h2>...but be wary!</h2>
+        <p>...the accuracy of those values is limited when more and more obstacles are present.</p>
+     
+    </div>     
+  
+
+   <div id="floorplan-info-reflexionsmodell" class="dialog">
+		<h1>Reflection Model</h1>
+        <h2>Computation of Reflections</h2>
+        <p>Reflections are caused by echoes of buildings and walls. There are various computation models, we currently just use one:</p>
+        <ul>
+        	<li>Reflexionsmodell gemäss Mitteilung 6, BUWAL 1995: This model was developed to compute reflections in urban canyons. It's only accurate in case of a larg number of buildings close to the road.</li>
+        </ul>
+    </div>
+
+   <div id="floorplan-info-reflexionszuschlag-buwal1995" class="dialog">
+				<h1>Reflection Model</h1>
+        <h2>Computation of Reflections</h2>
+        <p>Reflections are caused by echoes of buildings and walls. There are various computation models, we currently just use one:</p>
+        <ul>
+        	<li>Reflexionsmodell gemäss Mitteilung 6, BUWAL 1995: This model was developed to compute reflections in urban canyons. It's only accurate in case of a larg number of buildings close to the road.</li>
+        </ul>
+        <h2>Yellow Rectangle</h2>
+        <p>Only reflection surfaces inside the yellow rectangle are considered. The reception point is also expected to be inside the rectangle. If the yellow rectangle is only sparsely populated with walls and buildings, the computation will be inaccurate.</p>
+  
+    </div>
+
+   <div id="floorplan-info-name" class="dialog">
+		<h1>Name</h1>
+        <h2>Option "Name"</h2>
+        <p>You can label the objects with a name.</p>
+    </div> 
+
+   <div id="floorplan-info-typ" class="dialog">
+		<h1>Type</h1>
+        <h2>Option "Type"</h2>
+        <p>The type of an object. Can not be changed.</p>
+        <p>You can add the following types of objects:</p>
+        <ul>
+        	<li><i>Reception Points</i>: Position for which you'd like to compute the noise level. Represented by a yellow dot.</li>
+            <li><i>Road</i>: Source of the noise.</li>
+            <li><i>Walls and Buildings</i>: You can inculde those objects to calculate the noise reduction.</li>
+        </ul>
+    </div>
+      
+   <div id="floorplan-info-neu" class="dialog">
+		<h1>New Object</h1>
+        <h2>New Object</h2>
+        <p>Put a new building or a new wall into your neighborhood.</p>
+    </div> 
+ 
+   <div id="floorplan-info-hoehe" class="dialog">
+		<h1>Height of the Reception Point</h1>
+        <h2>Option "Height"</h2>
+        <p>Enter the height of your reception point above the road level.</p>
+        <p>Use a point, and not a comma, as decimal separator.</p>
+    </div>  
+
+   <div id="floorplan-info-hoehe-obs" class="dialog">
+		<h1>Obstacle Height</h1>
+        <h2>Option "Height"</h2>
+        <p>Maximal height of the obstacle above the road level.</p>
+        <p>A building with a height of 12 meters that is built 2 meters above the road level will lead to a value of 14 m.</p>
+        <p>Use a point, and not a comma, as decimal separator.</p>
+    </div>  
+
+   <div id="floorplan-info-loeschen" class="dialog">
+		<h1>Delete</h1>
+        <h2>Delete</h2>
+        <p>Delete the previously selected object.</p>
+    </div>  
+
+   <div id="floorplan-info-rot" class="dialog">
+		<h1>Rotate</h1>
+        <h2>Rotate</h2>
+        <p>Rotate the selected object by 90°.</p>
+    </div>  
+
+   <div id="floorplan-info-laermkarte" class="dialog">
+		<h1>Noise Map</h1>
+        <h2>Noise Map</h2>
+        <p>The noise level in your whole neighborhood will be computed and displayed as a heat map. Move your mouse to see the noise level at a specific point.</p>
+        <p>When you move an object, the noise map has to be recomputed.</p>
+        <p>Modern browser and computer is required.</p>
+    </div> 
+ 
+   <div id="dialog-info-emmission" class="dialog">
+		<h1>Emited Noise Level</h1>
+        <h2>Emited Noise Level L<sub>E</sub></h2>
+        <p>Enter the emited noise level L<sub>E</sub> in decibel (dB). For the canton of Zurich, you find the noise level of many roads on <a href="http://www.tba.zh.ch/internet/baudirektion/tba/de/laerm/laermsituation/strassenlaerm.html" target="_blank">Strassenlärm Informationssystem</a>.</p>
+        <p>For a road with heavy traffic, one can assume 80-90 decibel (dB).</p>
+    </div>  
+ 
+    
+   <div id="floorplan-info-berechne-heatmap" class="dialog">
+		<h1>Noise Map</h1>
+        <p>Please be patient. The computation can take up to a minute. It can happen that your browser freezes shortly.</p>
+    </div>      
+</div>
+
+</body>
+</html>
