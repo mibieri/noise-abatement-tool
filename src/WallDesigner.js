@@ -87,12 +87,12 @@ WallDesigner.prototype.init = function(){
 		}
 	);
 
-	this.tools.append("<div class=\"contextmenu-properties-line contextmenu-properties-title\">Resultate</div>");	
+	this.tools.append("<div class=\"contextmenu-properties-line contextmenu-properties-title\">" + lang_results + "</div>");
 	this.tools.append(this.toolResults);
 	
-	this.tools.append("<div class=\"contextmenu-properties-line contextmenu-properties-title\">Optionen</div>");
+	this.tools.append("<div class=\"contextmenu-properties-line contextmenu-properties-title\">" + lang_options + "</div>");
 	this.tools.append(this.toolProperties);
-	this.tools.append("<div class=\"contextmenu-properties-line contextmenu-properties-title\">Hilfe</div>");
+	this.tools.append("<div class=\"contextmenu-properties-line contextmenu-properties-title\">" + lang_help + "</div>");
 	
 	
 	this.tools.append(this.toolHelp);	

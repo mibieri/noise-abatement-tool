@@ -11,7 +11,7 @@ function NoiseCalculator(rcv, elements){
 	this.elements = elements;
 	
 	this.ok = false;
-	this.error = new Array("Warte auf Resultat...");
+	this.error = new Array(lang_wait_result);
 	
 	this.cnt = 0;
 	this.reflectionModel = "none";
@@ -603,7 +603,7 @@ NoiseCalculator.prototype.calculateReflectionBUWAL1995 = function(){
 	if(cnt == 0){
 		this.reflectionBUWAL1995Valid = false;
 		this.reflectionBUWAL1995 = 0;
-		this.reflectionError = "Reflexionen können für die skizzierte Situation nicht berechnet werden: Keine Häuser oder Wände liegen nahe genug an der Strasse.";
+		this.reflectionError = lang_calc_err5;
 		return;
 	}
 	
@@ -713,11 +713,11 @@ NoiseCalculator.prototype.calculateReflectionBUWAL1995 = function(){
 	// 4. Überprüfe, ob der Empfangspunkt innerhalb von maxdist liegt
 	
 	if(isNaN(delta_R) || (delta_R == 0)){
-		this.reflectionError = "Reflexionen können für die skizzierte Situation nicht berechnet werden: Keine Häuser oder Wände liegen nahe genug an der Strasse.";
+		this.reflectionError = lang_calc_err1;
 	}
 	else if(Math.abs(rcv.getCenterV() - road.getCenterV()) > maxdist){
 		delta_R = Number.NaN;
-		this.reflectionError = "Reflexionen können für die skizzierte Situation nicht berechnet werden: Empfangspunkt liegt zu weit von der Strasse entfernt (im Verhältnis zum Abstand der Häuser zur Strasse)."	
+		this.reflectionError = lang_calc_err2
 	}
 	
 	if(!isNaN(delta_R)){
@@ -745,14 +745,14 @@ NoiseCalculator.prototype.check = function(){
 		var e = this.elements.obstacles[i];
 	
 		if(this.receiver.convexIsOverlappingWith(e)){
-			this.error.push("Fehler: Empfangspunkt befindet sich innerhalb von " + e.name + ".");
+			this.error.push(lang_calc_err3(e.name));
 			this.ok = false;
 		}	
 	}
 	
 	// 2. Empfänger darf nicht innerhalb der Strasse sein
 	if(this.receiver.convexIsOverlappingWith(this.elements.roads[0])){
-		this.error.push("Fehler: Empfangspunkt befindet sich auf der Strasse.");
+		this.error.push(lang_calc_err6);
 		this.ok = false;
 	}	
 	
@@ -762,7 +762,7 @@ NoiseCalculator.prototype.check = function(){
 		for(var j = i + 1; 	j < this.elements.obstacles.length; j ++){
 			var e2 = this.elements.obstacles[j];			
 			if(e1.convexIsOverlappingWith(e2)){
-				this.error.push("Fehler: " + e2.name + " überlappt sich mit " + e1.name + ".");
+				this.error.push(lang_calc_err4(e2.name, e1.name));
 				this.ok = false;					
 			}		
 		}
@@ -953,7 +953,7 @@ NoiseAccountant.prototype.getList = function(){
 		var a = this.accounts[k];
 		
 		list.push({
-			text: "Reduktion " + ((a.objA == a.objB) ? (a.objA.name) : ("Doppelhindernis " + a.objA.name + "-" + a.objB.name)),
+			text: lang_calc_reduction + " " + ((a.objA == a.objB) ? (a.objA.name) : (lang_calc_double_obstacle + " " + a.objA.name + "-" + a.objB.name)),
 			value: 10 * Math.log(this.totalEnergy + a.value) / Math.LN10 - 10 * Math.log(this.totalEnergy) / Math.LN10
 		});
 		

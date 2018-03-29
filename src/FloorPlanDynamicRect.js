@@ -89,7 +89,7 @@ var FloorPlanDynamicRect = FloorPlanDynamicObject.extend({
 		
 		this.setResizeDragzones(this.resizeableTop, this.resizeableRight, this.resizeableBottom, this.resizeableLeft);
 
-		if(this.typeStr == "Lärmschutzwand"){
+		if(this.typeStr == lang_add_wall_type){
 			this.removeRulers();
 			this.floorplan.addRulersRoadReceiverWall(this.floorplan.roads, this.floorplan.receivers, this);
 		}
@@ -101,9 +101,9 @@ var FloorPlanDynamicRect = FloorPlanDynamicObject.extend({
 	getMenu: function(){
 		var that = this;
 		var menu = this._super();
-		menu.addInput("hoehe", "Höhe (m)", this.vHeight, function(val){that.setHeight(val);}, {textfield: "contextmenu-properties-textfield-numeric"}, "floorplan-info-hoehe-obs");
-		menu.addButton("loeschen", "90° Drehen", "Drehen", function(){that.rot90();}, {}, "floorplan-info-rot");
-		menu.addButton("drehen", "Löschen", "Löschen", function(){that.del();}, {}, "floorplan-info-loeschen");
+		menu.addInput("hoehe", lang_add_height, this.vHeight, function(val){that.setHeight(val);}, {textfield: "contextmenu-properties-textfield-numeric"}, "floorplan-info-hoehe-obs");
+		menu.addButton("loeschen", lang_add_angle, lang_add_angle2, function(){that.rot90();}, {}, "floorplan-info-rot");
+		menu.addButton("drehen", lang_add_delete, lang_add_delete, function(){that.del();}, {}, "floorplan-info-loeschen");
 
 		return menu;
 	},

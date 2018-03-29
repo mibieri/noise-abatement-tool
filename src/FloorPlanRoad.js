@@ -110,8 +110,8 @@ var FloorPlanRoad = FloorPlanDynamicObject.extend({
 		
 		this.menu = new ContextMenuDescriptor();
 		
-		this.menu.addText("typ", "Typ", "Strasse", {}, "floorplan-info-typ");
-		this.menu.addInput("laermemission", "Emmissionspegel (dB)", this.noiseLevel, function(val){that.setNoiseLevel(val);}, {textfield: "contextmenu-properties-textfield-numeric"}, "dialog-info-emmission");
+		this.menu.addText("typ", lang_add_type, lang_add_road, {}, "floorplan-info-typ");
+		this.menu.addInput("laermemission", lang_add_road_emmission, this.noiseLevel, function(val){that.setNoiseLevel(val);}, {textfield: "contextmenu-properties-textfield-numeric"}, "dialog-info-emmission");
 	},
 
 	setNoiseLevel: function(n){
