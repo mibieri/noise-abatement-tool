@@ -169,7 +169,7 @@ FloorPlan.prototype.addReceiver = function(data){
 	var receiver = new FloorPlanReceiver(	
 		this.rcvLayer,
 		{
-			name: "Empfangspunkt " + (cnt + 1),
+			name: lang_add_reception_name + " " + (cnt + 1),
 			top: 50,
 			left: 60 + cnt * 5,
 			pointRadius: 0.5,
@@ -218,8 +218,8 @@ FloorPlan.prototype.addWall = function(data){
 	var wall = new FloorPlanDynamicRect(
 		this.planLayer,
 		{
-			typeStr: "Lärmschutzwand",
-			name: "Wand " + this.wallCnt,
+			typeStr: lang_add_wall_type,
+			name: lang_add_wall_name + " " + this.wallCnt,
 			top: 42 + (cnt % 8) * 2, 
 			left: 10 + (cnt % 8) * 2, 
 			bottom: 42.5 + (cnt % 8) * 2, 
@@ -251,8 +251,8 @@ FloorPlan.prototype.addRect = function(data){
 	var rect = new FloorPlanDynamicRect(
 		this.planLayer,
 		{
-			typeStr: "Gebäude",	
-			name: "Haus " + this.houseCnt,
+			typeStr: lang_add_building_type,
+			name: lang_add_building_name + " " + this.houseCnt,
 			top: 5 + cnt / 4, 
 			left: 5 + (cnt % 4) * 15 + cnt / 4, 
 			bottom: 15 + cnt / 4, 
@@ -500,9 +500,9 @@ FloorPlan.prototype.loadFromPersistent = function(data){
 				
 		for(var i = 0; i < data.obstacles.length; i ++){
 			var obs = data.obstacles[i];
-			if(obs.typeStr == "Lärmschutzwand")
+			if(obs.typeStr == lang_add_wall_type)
 				this.addWall(obs);
-			else if(obs.typeStr == "Gebäude")
+			else if(obs.typeStr == lang_add_wall_type)
 				this.addRect(obs);
 		}
 	}
@@ -554,9 +554,9 @@ FloorPlan.prototype.buildMenu = function(){
 		
 	this.menu = new ContextMenuDescriptor();
 		
-	this.menu.addText("typ", "Typ", "Zeichenfläche", {}, "floorplan-info-typ");
-	this.menu.addButton("newWall", "Neue Wand", "Neue Wand", function(){that.addWall();}, {}, "floorplan-info-neu");
-	this.menu.addButton("newHouse", "Neues Haus", "Neues Haus", function(){that.addRect();}, {}, "floorplan-info-neu");
+	this.menu.addText("typ", lang_add_type, lang_add_canvas, {}, "floorplan-info-typ");
+	this.menu.addButton("newWall", lang_add_newwall, lang_add_newwall, function(){that.addWall();}, {}, "floorplan-info-neu");
+	this.menu.addButton("newHouse", lang_add_newhouse, lang_add_newhouse, function(){that.addRect();}, {}, "floorplan-info-neu");
 }
 		
 FloorPlan.prototype.getMenu = function(){

@@ -10,7 +10,7 @@ var FloorPlanReceiver = FloorPlanDynamicObject.extend({
 		this._super(layer, config, data);
 
 		this.help = "floorplan-help-receiver";
-		this.type = "Empfangspunkt";
+		this.type = lang_add_reception_name;
 		
 		this.setTop(this.top - this.pointRadius);
 		this.setBottom(this.top + 2 * this.pointRadius);
@@ -179,7 +179,7 @@ var FloorPlanReceiver = FloorPlanDynamicObject.extend({
 						
 			var h = this.calc.heatmap[hx][hy];
 	
-			this.heatmapHeat.setText("Schallpegel bei Mauszeiger: " + Math.floor(h * 10) / 10 + " dB");
+			this.heatmapHeat.setText(lang_res_noiselevel_mouse(Math.floor(h * 10) / 10));
 		}
 		else{
 			this.heatmapHeat.setText("");		
@@ -191,10 +191,10 @@ var FloorPlanReceiver = FloorPlanDynamicObject.extend({
 		this.menu = this._super();
 		
 		
-		this.menu.addText("typ", "Typ", "Empfangspunkt", {}, "floorplan-info-typ");
-		this.menu.addInput("hoehe", "Höhe (m)", this.vHeight, function(val){that.setHeight(val);}, {textfield: "contextmenu-properties-textfield-numeric"}, "floorplan-info-hoehe");
-		this.menu.addOption("refl", "Reflexionsmodell", [{name: "none", label: "Aus", selected: this.calc.getReflectionModel() == "none"}, {name: "buwal1995", label: "BUWAL 1995", selected: this.calc.getReflectionModel() == "buwal1995"}], function(val){that.setReflection(val);}, {}, "floorplan-info-reflexionsmodell");
-		this.menu.addButton("laermkarte", "Lärmkarte", "Berechnen", function(){that.calcHeatmap();}, {}, "floorplan-info-laermkarte");
+		this.menu.addText("typ", lang_add_type, lang_add_reception_name, {}, "floorplan-info-typ");
+		this.menu.addInput("hoehe", lang_add_height, this.vHeight, function(val){that.setHeight(val);}, {textfield: "contextmenu-properties-textfield-numeric"}, "floorplan-info-hoehe");
+		this.menu.addOption("refl", lang_add_reflection_model, [{name: "none", label: "Aus", selected: this.calc.getReflectionModel() == "none"}, {name: "buwal1995", label: "BUWAL 1995", selected: this.calc.getReflectionModel() == "buwal1995"}], function(val){that.setReflection(val);}, {}, "floorplan-info-reflexionsmodell");
+		this.menu.addButton("laermkarte", lang_add_noisemap, lang_add_calculate, function(){that.calcHeatmap();}, {}, "floorplan-info-laermkarte");
 		
 		return this.menu;
 	},
@@ -206,9 +206,9 @@ var FloorPlanReceiver = FloorPlanDynamicObject.extend({
 		
 		if(this.calc.ok){
 			
-			this.resultMenu.addText("level-tot", "Pegel am Empfangspunkt", Math.round(this.calc.getTotal() * 10) / 10 + " dB", {right: "contextmenu-results-right contextmenu-results-main", left: "contextmenu-results-left contextmenu-results-main"}, "floorplan-info-pegel-am-empfangspunkt");	
+			this.resultMenu.addText("level-tot", lang_res_noiselevel, Math.round(this.calc.getTotal() * 10) / 10 + " dB", {right: "contextmenu-results-right contextmenu-results-main", left: "contextmenu-results-left contextmenu-results-main"}, "floorplan-info-pegel-am-empfangspunkt");
 			
-			this.resultMenu.addTitle("title-obs", "Hinderniswirkungen");
+			this.resultMenu.addTitle("title-obs", lang_res_obstacle_effect);
 								
 			if(this.calc.accountant){
 				var list = this.calc.accountant.getList();
@@ -219,18 +219,18 @@ var FloorPlanReceiver = FloorPlanDynamicObject.extend({
 					}
 				}
 				else{
-					this.resultMenu.addLine("no-obs", "Es befinden sich keine Schallhindernisse zwischen Empfangspunkt und Strasse.");
+					this.resultMenu.addLine("no-obs", lang_res_no_obstacles);
 				}
 			}
 
-			this.resultMenu.addTitle("title-reflex", "Reflexionen");
+			this.resultMenu.addTitle("title-reflex", lang_reflections);
 			
 			if(this.calc.getReflectionModel() == "none"){
-					this.resultMenu.addLine("no-refl", "Kein Berechnungsmodell für Reflexionen ausgewählt. Klicken Sie auf den Empfangspunkt, um ein Modell zu wählen.");				
+					this.resultMenu.addLine("no-refl", lang_res_no_reflextionmodel);
 			}
 			else if(this.calc.getReflection() > 0){
-				this.resultMenu.addText("reflection", "Reflexionszuschlag", Math.round(this.calc.getReflection() * 10) / 10 + " dB", {right: "contextmenu-results-right", left: "contextmenu-results-left"}, "floorplan-info-reflexionszuschlag-buwal1995");
-				this.resultMenu.addLine("no-refl", "Gelbes Rechteck: Gebiet, das in die Reflexionsberechnung einbezogen wird.");			
+				this.resultMenu.addText("reflection", lang_res_reflection_label, Math.round(this.calc.getReflection() * 10) / 10 + " " + lang_res_db, {right: "contextmenu-results-right", left: "contextmenu-results-left"}, "floorplan-info-reflexionszuschlag-buwal1995");
+				this.resultMenu.addLine("no-refl", lang_yellow_rect);
 			}
 			else{
 				this.resultMenu.addLine("refl0", this.calc.getReflectionError());	
